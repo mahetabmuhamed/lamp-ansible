@@ -1,1 +1,1 @@
-# LAMP-ansible
+# lamp-ansible
