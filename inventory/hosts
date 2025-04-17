@@ -1,0 +1,2 @@
+[webservers]
+192.168.17.137 ansible_user=mahy ansible_ssh_pass=mahy123

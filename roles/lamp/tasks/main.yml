@@ -1,0 +1,54 @@
+- name: Install Apache, MySQL, PHP
+  block:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install MySQL
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Install PHP and extensions
+      apt:
+        name:
+          - php
+          - libapache2-mod-php
+          - php-mysql
+        state: present
+
+  rescue:
+    - name: Handle install failure
+      debug:
+        msg: "Something went wrong during LAMP installation."
+
+  always:
+    - name: Notify install attempt finished
+      debug:
+        msg: "LAMP install block completed."
+
+- name: Copy test PHP file
+  copy:
+    src: index.php
+    dest: /var/www/html/index.php
+  notify: restart apache
+
+- name: Allow HTTP port 80
+  ufw:
+    rule: allow
+    port: 80
+
+- name: Allow HTTPS port 443
+  ufw:
+    rule: allow
+    port: 443
+
+- name: Enable firewall
+  ufw:
+    state: enabled
+    policy: allow

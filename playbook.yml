@@ -1,0 +1,6 @@
+- name: Deploy LAMP Stack
+  hosts: webservers
+  become: true
+
+  roles:
+    - lamp
