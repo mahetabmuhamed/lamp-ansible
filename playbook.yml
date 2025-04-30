@@ -1,0 +1,13 @@
+---
+- name: Deploy LAMP Stack
+  hosts: webservers
+  become: yes
+
+  vars_files:
+    - group_vars/all.yml
+
+  roles:
+    - apache
+    - mysql
+    - php
+

@@ -1,0 +1,35 @@
+---
+- name: MySQL Installation Block
+  block:
+    - name: Preseed MySQL password
+      debconf:
+        name: mysql-server
+        question: mysql-server/root_password
+        value: "{{ mysql_root_password }}"
+        vtype: password
+
+    - name: Confirm MySQL password again
+      debconf:
+        name: mysql-server
+        question: mysql-server/root_password_again
+        value: "{{ mysql_root_password }}"
+        vtype: password
+
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Ensure MySQL is running
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+  rescue:
+    - debug: msg="MySQL setup failed"
+
+  always:
+    - debug: msg="MySQL block completed"
+

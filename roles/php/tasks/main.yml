@@ -1,0 +1,23 @@
+---
+- name: PHP Installation Block
+  block:
+    - name: Install PHP and modules
+      apt:
+        name:
+          - php
+          - php-mysql
+          - libapache2-mod-php
+        state: present
+        update_cache: yes
+
+    - name: Restart Apache to load PHP
+      service:
+        name: apache2
+        state: restarted
+
+  rescue:
+    - debug: msg="PHP installation failed"
+
+  always:
+    - debug: msg="PHP block completed"
+
