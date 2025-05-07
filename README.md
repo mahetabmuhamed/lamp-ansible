@@ -65,3 +65,7 @@ Inventory files support environment-based deployment (dev, prod).
 
 Variables are defined cleanly using group_vars.
 
+
+![image](https://github.com/user-attachments/assets/64754e9a-f3ea-41fe-8af6-3ec44a07095c)
+
+
